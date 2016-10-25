@@ -48,9 +48,7 @@ Run the script below in a new notebook. Refresh the browser if you don't see the
 ### Tutorials
 
 This is an excellent tutorial on Lua, Torch7 and neural networks:
-
-    https://www.youtube.com/playlist?list=PLLHTzKZzVU9ebuL6DCclzI54MrPNFGqbW
+* https://www.youtube.com/playlist?list=PLLHTzKZzVU9ebuL6DCclzI54MrPNFGqbW
 
 This is a brief description of what iTorch7 is and how to use some of its functionalities:
-
-    http://github.com/facebook/iTorch
+* http://github.com/facebook/iTorch
