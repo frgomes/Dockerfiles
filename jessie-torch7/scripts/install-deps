@@ -168,12 +168,11 @@ elif [[ "$(uname)" == 'Linux' ]]; then
 
     elif [[ $distribution == 'debian' ]]; then # not tested well
         declare -a target_pkgs
-        target_pkgs=( build-essential gcc g++ curl \
-                      cmake libreadline-dev git-core libqtcore4 libqtgui4 \
-                      libqt4-dbus libqt4-network libqt4-script libqt4-test libqt4-xml \
-                      libqt4-dev libjpeg-dev libpng-dev ncurses-dev \
-                      imagemagick libzmq3-dev gfortran unzip gnuplot \
-                      gnuplot-x11 ipython nodejs libzmq3-dev python-zmq libopenblas-base libopenblas-dev)
+        target_pkgs=( build-essential cmake \
+                      qt4-default libqtcore4 libqtgui4 libqt4-dbus libqt4-network libqt4-script libqt4-test libqt4-xml libqt4-dev \
+                      libjpeg-dev libpng-dev imagemagick libzmq3-dev gnuplot gnuplot-x11 \
+                      libssl-dev ncurses-dev libreadline-dev libzmq3-dev python-zmq libopenblas-base libopenblas-dev \
+                      nodejs)
         sudo apt-get update
 
         gcc_major_version=$(gcc --version | grep ^gcc | awk '{print $4}' | \

@@ -1,33 +1,39 @@
 FROM debian:jessie
 
-MAINTAINER Richard Gomes <rgomes.info@gmail.com>
+MAINTAINER Richard Gomes - http://github.com/frgomes
 
 COPY etc/apt/sources.list /etc/apt/sources.list
 RUN awk '$1 ~ "^deb" { $3 = $3 "-backports"; print; exit }' /etc/apt/sources.list > /etc/apt/sources.list.d/backports.list
 
-WORKDIR /root
-
-# Install Torch7
 RUN apt-get update
-RUN apt-get install -y -t jessie-backports sudo curl wget git mercurial -y
-RUN apt-get install -y -t jessie-backports software-properties-common libzmq3-dev libssl-dev python-zmq
-RUN curl -s https://raw.githubusercontent.com/frgomes/docker-scripts/master/jessie-torch7/scripts/install-all | sudo bash
+RUN apt-get install -y -t jessie-backports software-properties-common
+RUN apt-get install -y -t jessie-backports wget curl zip unzip gzip bzip2 p7zip xz-utils
+RUN apt-get install -y -t jessie-backports git mercurial python-pip
+RUN apt-get install -y -t jessie-backports sudo
 
-# Install miniconda
-ENV CONDA_DOWNLOAD_SCRIPT=Miniconda3-latest-Linux-x86_64.sh CONDA_DIR=/opt/conda
-RUN wget -q https://repo.continuum.io/miniconda/$CONDA_DOWNLOAD_SCRIPT && \
-    bash $CONDA_DOWNLOAD_SCRIPT -b -p $CONDA_DIR && \
-    rm $CONDA_DOWNLOAD_SCRIPT
-ENV PATH=$CONDA_DIR/bin:$PATH
+# Run Torch7 installation scripts (dependencies only)
+RUN mkdir -p /root/sources
+COPY scripts/install-deps /root/sources
+RUN /root/sources/install-deps
 
-# Install jupyter
-RUN conda install -y jupyter
+RUN pip install --upgrade pip
+RUN pip install jupyter ipywidgets
+
+# Run Torch7 installation scripts (build from sources)
+ADD torch7 /root/sources/torch7
+RUN cd /root/sources/torch7 && ./install.sh
 
 # Install iTorch
-RUN git clone https://github.com/facebook/iTorch.git && \
-    cd iTorch && \
+ADD itorch /root/sources/itorch
+RUN cd /root/sources/itorch && \
+    . /root/sources/torch7/install/bin/torch-activate && \
     luarocks make
 
-# Launch iTorch
-WORKDIR /root/workspace
-CMD ["itorch", "notebook", "--ip=0.0.0.0", "--no-browser"]
+# Launcher script for iTorch
+COPY scripts/startup.sh /root
+
+VOLUME /root/Documents
+VOLUME /root/Media
+VOLUME /root/workspace
+
+CMD [ "/root/startup.sh" ]
