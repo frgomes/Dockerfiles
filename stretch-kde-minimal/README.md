@@ -1,7 +1,8 @@
-Minimalist KDE Desktop
+Minimalist KDE Desktop with a VNC server
 
 * KDE5 Plasma Desktop (minimal set of applications)
 * System administration: systemsettings
+* Networking: tighvncserver
 
 
 ### Usage
