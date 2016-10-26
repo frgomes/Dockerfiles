@@ -6,4 +6,4 @@ RUN apt-get install -y kdenlive vlc dvdauthor genisoimage
 
 VOLUME /root/kdenlive
 
-CMD ["/usr/bin/supervisord","-n"]
+CMD ["/bin/bash"]
