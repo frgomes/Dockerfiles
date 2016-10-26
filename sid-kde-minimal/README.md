@@ -8,7 +8,7 @@ Minimalist KDE Desktop
 
 Create a function like shown below:
 
-    function docker_stretch_kde_minimal {
+    function docker_sid_kde_minimal {
       # You may or may not have VNC already installed and kicking in your host computer.
       # In a clean setup, you should not. However, you may be in a transitioning state which
       # implies that your host computer still have a lot of things installed which should not
@@ -20,9 +20,9 @@ Create a function like shown below:
                  -p ${XRDP_PORT}:5901 \
                  -v ${HOME}/Documents:/root/Documents \
                  -v ${HOME}/Media:/root/Media \
-                 rgomes/stretch-kde-minimal
+                 rgomes/sid-kde-minimal
     }
 
 and then call it:
 
-    docker_stretch_kde_minimal
+    docker_sid_kde_minimal

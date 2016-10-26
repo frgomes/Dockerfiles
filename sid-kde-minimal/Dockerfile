@@ -1,4 +1,4 @@
-FROM rgomes/stretch-base
+FROM rgomes/sid-base
 
 MAINTAINER Richard Gomes - http://github.com/frgomes
 

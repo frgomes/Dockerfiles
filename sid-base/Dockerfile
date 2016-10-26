@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:sid
 
 MAINTAINER Richard Gomes - http://github.com/frgomes
 

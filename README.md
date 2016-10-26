@@ -18,13 +18,20 @@ Container which aims to serve as a base for other stacked containers.
 * System administration: sudo
 
 
+##### stretch-xrdp
+
+Minimalist desktop environment with a RDP server.
+
+* Debian Stretch
+* xrdp
+
+
 ##### stretch-kde-minimal
 
-Minimalist KDE Desktop with a VNC server
+Minimalist KDE Desktop
 
 * KDE5 Plasma Desktop (minimal set of applications)
 * System administration: systemsettings
-* Networking: tightvncserver
 
 
 ##### stretch-kde-standard
