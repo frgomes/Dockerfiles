@@ -12,7 +12,7 @@ VOLUME /root/Media
 
 WORKDIR /root
 
-RUN apt-get install -y vnc4server xfonts-base xfonts-75dpi xfonts-100dpi xfonts-scalable
+RUN apt-get install -y vnc4server xfonts-base xfonts-75dpi xfonts-100dpi xfonts-scalable emacs24
 
 COPY resources/turbovnc_2.1_amd64.deb /tmp
 RUN dpkg -i /tmp/turbovnc_2.1_amd64.deb
