@@ -21,4 +21,4 @@ RUN echo "APT::Install-Recommends 0;" >> /etc/apt/apt.conf.d/01norecommends \
 
 ENV TERM="xterm" LC_ALL="C.UTF-8"
 
-CMD ["/bin/bash"]
+CMD [ "/bin/bash" ]

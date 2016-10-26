@@ -24,4 +24,4 @@ COPY resources/vnc.sh   /root/vnc.sh
 
 EXPOSE 5901
 
-ENTRYPOINT /root/vnc.sh
+ENTRYPOINT [ "/root/vnc.sh" ]
