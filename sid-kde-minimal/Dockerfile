@@ -19,10 +19,9 @@ RUN dpkg -i /tmp/turbovnc_2.1_amd64.deb
 
 RUN mkdir /root/.vnc
 COPY resources/xstartup /root/.vnc/xstartup
-COPY resources/vnc.sh /root/vnc.sh
-RUN echo 'export PATH=${PATH}:/opt/TurboVNC/bin' >> ${HOME}/.bashrc
+COPY resources/passwd   /root/.vnc/passwd
+COPY resources/vnc.sh   /root/vnc.sh
 
 EXPOSE 5901
 
-CMD /bin/bash
-#ENTRYPOINT /root/vnc.sh
+ENTRYPOINT /root/vnc.sh
