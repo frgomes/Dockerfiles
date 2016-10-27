@@ -27,4 +27,22 @@ Create a function like shown below:
 
 and then call it:
 
-    docker_sid_kdenlive
+    $ docker_sid_kdenlive
+    $ /opt/TurboVNC/bin/vncviewer localhost:55901
+
+
+### Requirements
+
+Make sure you install TurboVNC on whatever client machine you would like to use to access your Docker instances.
+The commands below install ``vncviewer``:
+
+    $ wget http://heanet.dl.sourceforge.net/project/turbovnc/2.1/turbovnc_2.1_amd64.deb
+    $ sudo dpkg -i turbovnc_2.1_amd64.deb
+
+Verify what has been installed:
+
+    $ ls -al /opt/TurboVNC/bin
+
+Consult manual pages:
+
+    $ man -M /opt/TurboVNC/man vncviewer
