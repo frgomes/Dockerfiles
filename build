@@ -1,0 +1,54 @@
+#!/bin/bash
+
+cwd=$(dirname $(test -L "$BASH_SOURCE" && readlink -f "$BASH_SOURCE" || echo "$BASH_SOURCE"))
+
+
+function dockerfiles_build {
+  if [ ! -z "$1" ] ;then
+    local link=$(readlink -f "$1")
+    local dir=$(dirname   "$link")
+    local name=$(basename "$link" .m4)
+    
+    local tag=$(git describe --abbrev=0 --tags 2> /dev/null )
+    local tag=${tag:=none}
+
+    local tags="-t $USER/${name}:${tag}"
+
+    local TARGET=${cwd}/target
+
+    local args=""
+    for var in http_proxy ;do
+      def=$(env | fgrep $var)
+      [[ ! -z "$def" ]] && args="$args --build-arg ${var}=${def}"
+    done
+    
+    [[ -x "${dir}/${name}/pre-build.sh" ]] && source "${dir}/${name}/pre-build.sh"
+
+    [[ ! -d "${TARGET}" ]] && mkdir -p "${TARGET}"
+    local dockerfile="${TARGET}/${name}.tmp"
+
+    m4 --define=TARGET=${TARGET} --define=TAG=${tag} -I "${dir}/modules" "${dir}/${name}.m4" > "$dockerfile"
+    docker build ${args} ${tags} -f "$dockerfile" "$cwd"
+
+    [[ -x "${dir}/${name}/post-build.sh" ]] && source "${dir}/${name}/post-build.sh"
+  fi
+}
+
+
+dockerfiles_build $*
+
+
+###TODO: auto-completion
+#
+#function docker_complete_m4 {
+#  local cur prev opts base
+#  COMPREPLY=()
+#  cur="${COMP_WORDS[COMP_CWORD]}"
+#  prev="${COMP_WORDS[COMP_CWORD-1]}"
+#  opts=""
+#
+#  local projects=$( ls -p ~/cscope | fgrep / | sed 's:/::' )
+#  COMPREPLY=( $(compgen -W "${projects}" -- ${cur}) )
+#  return 0
+#}
+#complete -F _cscope cscope+
